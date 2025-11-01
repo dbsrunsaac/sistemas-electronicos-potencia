@@ -1,0 +1,21 @@
+# EXCEPCIONES
+Project Backups/
+*.ms14 (Security copy)
+*.pdsprj.*
+*.rar
+
+
+# Archivos latex
+*.aux
+*.log
+*.out
+*.synctex.gz
+*.bbl
+*.blg
+*.dvi
+
+
+# files latex (packages)
+/_minted*/
+/_minted-*/
+
