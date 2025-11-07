@@ -88,7 +88,7 @@ title('Variable de entrada error');
 xlabel('Error');
 axis([-20 20 -0.2 1.2]);
 
-% MODELADO DE UNA SEGUNDA ENTRADA (ERROR)
+% MODELADO DE UNA SEGUNDA ENTRADA (dERROR)
 derror = -10 : 0.5 : 10; % Universo de discurso de la derivada de la variable error
 % limites de la variable derror
 def = -10;
