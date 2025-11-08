@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Inteligencia-artificial
 Proyectos de IA para el control de sistemas y diversas aplicaciones dentro del área de la electrónica
 
@@ -19,3 +20,8 @@ Proyectos de IA para el control de sistemas y diversas aplicaciones dentro del �
     
 
 
+=======
+Sistemas electrónicos de Potencia
+
+Avance, trabajos e información sobre este tipo de dispositivos
+>>>>>>> cf69ff300825866e31f81df9e5026206ff8c29d1

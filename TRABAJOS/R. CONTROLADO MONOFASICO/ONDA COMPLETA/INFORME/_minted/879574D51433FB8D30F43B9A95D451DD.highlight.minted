@@ -1,0 +1,54 @@
+\begin{MintedVerbatim}[commandchars=\\\{\}]
+
+\PYG{c+c1}{// Variables de control}
+\PYG{k}{volatile}\PYG{+w}{ }\PYG{n}{boolean}\PYG{+w}{ }\PYG{n}{cruceCero}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{0}\PYG{p}{;}
+\PYG{k+kt}{int}\PYG{+w}{ }\PYG{n}{triac}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{3}\PYG{p}{;}
+\PYG{k+kt}{int}\PYG{+w}{ }\PYG{n}{triac2}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{4}\PYG{p}{;}
+\PYG{k+kt}{int}\PYG{+w}{ }\PYG{n}{x}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{1}\PYG{p}{;}
+\PYG{k+kt}{int}\PYG{+w}{ }\PYG{n}{POT}\PYG{p}{;}
+\PYG{k+kt}{int}\PYG{+w}{ }\PYG{n}{dim}\PYG{p}{;}
+
+\PYG{c+c1}{// Configuración inicial}
+\PYG{k+kt}{void}\PYG{+w}{ }\PYG{n+nf}{setup}\PYG{p}{()}\PYG{+w}{ }\PYG{p}{\PYGZob{}}
+\PYG{+w}{	}\PYG{n}{Serial}\PYG{p}{.}\PYG{n}{begin}\PYG{p}{(}\PYG{l+m+mi}{9600}\PYG{p}{);}
+\PYG{+w}{	}\PYG{n}{pinMode}\PYG{p}{(}\PYG{n}{triac}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{OUTPUT}\PYG{p}{);}
+\PYG{+w}{	}\PYG{n}{pinMode}\PYG{p}{(}\PYG{n}{triac2}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{OUTPUT}\PYG{p}{);}
+\PYG{+w}{	}\PYG{n}{attachInterrupt}\PYG{p}{(}\PYG{l+m+mi}{0}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{deteccionCruceCero}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{RISING}\PYG{p}{);}
+\PYG{p}{\PYGZcb{}}
+
+\PYG{k+kt}{void}\PYG{+w}{ }\PYG{n+nf}{deteccionCruceCero}\PYG{p}{()\PYGZob{}}
+\PYG{+w}{	}\PYG{n}{cruceCero}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n+nb}{true}\PYG{p}{;}
+\PYG{+w}{	}\PYG{n}{x}\PYG{o}{++}\PYG{p}{;}
+\PYG{+w}{	}\PYG{k}{if}\PYG{+w}{ }\PYG{p}{(}\PYG{n}{x}\PYG{+w}{ }\PYG{o}{==}\PYG{+w}{ }\PYG{l+m+mi}{3}\PYG{p}{)\PYGZob{}}
+\PYG{+w}{		}\PYG{n}{x}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{1}\PYG{p}{;}
+\PYG{+w}{	}\PYG{p}{\PYGZcb{}}
+\PYG{+w}{	}\PYG{n}{Serial}\PYG{p}{.}\PYG{n}{println}\PYG{p}{(}\PYG{n}{x}\PYG{p}{),}
+\PYG{+w}{	}\PYG{n}{digitalWrite}\PYG{p}{(}\PYG{n}{triac}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{LOW}\PYG{p}{);}
+\PYG{+w}{	}\PYG{n}{digitalWrite}\PYG{p}{(}\PYG{n}{triac2}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{LOW}\PYG{p}{);}
+\PYG{p}{\PYGZcb{}}
+
+\PYG{k+kt}{void}\PYG{+w}{ }\PYG{n+nf}{loop}\PYG{p}{()}\PYG{+w}{ }\PYG{p}{\PYGZob{}}
+\PYG{+w}{	}\PYG{n}{POT}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{analogRead}\PYG{p}{(}\PYG{n}{A0}\PYG{p}{);}
+\PYG{+w}{	}\PYG{n}{dim}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{map}\PYG{p}{(}\PYG{n}{POT}\PYG{p}{,}\PYG{+w}{ }\PYG{l+m+mi}{0}\PYG{p}{,}\PYG{+w}{ }\PYG{l+m+mi}{1023}\PYG{p}{,}\PYG{+w}{ }\PYG{l+m+mi}{0}\PYG{p}{,}\PYG{+w}{ }\PYG{l+m+mf}{8.3}\PYG{p}{);}
+
+
+\PYG{+w}{	}\PYG{c+c1}{// Envía los pulsos según el valor actual del pot para el tiempo}
+
+\PYG{+w}{	}\PYG{k}{if}\PYG{+w}{ }\PYG{p}{(}\PYG{+w}{ }\PYG{n}{x}\PYG{+w}{ }\PYG{o}{==}\PYG{+w}{ }\PYG{l+m+mi}{1}\PYG{+w}{ }\PYG{o}{\PYGZam{}\PYGZam{}}\PYG{+w}{ }\PYG{n}{cruceCero}\PYG{+w}{ }\PYG{o}{==}\PYG{+w}{ }\PYG{n+nb}{true}\PYG{p}{)\PYGZob{}}
+\PYG{+w}{		}\PYG{n}{delay}\PYG{p}{(}\PYG{n}{dim}\PYG{p}{);}
+\PYG{+w}{		}\PYG{n}{digitalWrite}\PYG{p}{(}\PYG{n}{triac}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{HIGH}\PYG{p}{);}
+\PYG{+w}{		}\PYG{n}{delay}\PYG{p}{(}\PYG{l+m+mi}{1}\PYG{p}{);}
+\PYG{+w}{		}\PYG{n}{digitalWrite}\PYG{p}{(}\PYG{n}{triac}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{LOW}\PYG{p}{);}
+\PYG{+w}{		}\PYG{n}{cruceCero}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n+nb}{false}\PYG{p}{;}
+\PYG{+w}{	}\PYG{p}{\PYGZcb{}}
+
+
+\PYG{+w}{	}\PYG{k}{if}\PYG{+w}{ }\PYG{p}{(}\PYG{+w}{ }\PYG{n}{x}\PYG{+w}{ }\PYG{o}{==}\PYG{+w}{ }\PYG{l+m+mi}{2}\PYG{+w}{ }\PYG{o}{\PYGZam{}\PYGZam{}}\PYG{+w}{ }\PYG{n}{cruceCero}\PYG{+w}{ }\PYG{o}{==}\PYG{+w}{ }\PYG{n+nb}{true}\PYG{p}{)\PYGZob{}}
+\PYG{+w}{		}\PYG{n}{delay}\PYG{p}{(}\PYG{n}{dim}\PYG{p}{);}
+\PYG{+w}{		}\PYG{n}{digitalWrite}\PYG{p}{(}\PYG{n}{triac2}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{HIGH}\PYG{p}{);}
+\PYG{+w}{		}\PYG{n}{delay}\PYG{p}{(}\PYG{l+m+mi}{1}\PYG{p}{);}
+\PYG{+w}{		}\PYG{n}{digitalWrite}\PYG{p}{(}\PYG{n}{triac2}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{LOW}\PYG{p}{);}
+\PYG{+w}{		}\PYG{n}{cruceCero}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n+nb}{false}\PYG{p}{;}
+\PYG{+w}{	}\PYG{p}{\PYGZcb{}}
+\PYG{p}{\PYGZcb{}}
+\end{MintedVerbatim}
