@@ -1,0 +1,40 @@
+[System]
+Name='matlab_to_simulink'
+Type='mamdani'
+Version=2.0
+NumInputs=2
+NumOutputs=1
+NumRules=0
+AndMethod='min'
+OrMethod='max'
+ImpMethod='min'
+AggMethod='max'
+DefuzzMethod='centroid'
+
+[Input1]
+Name='error'
+Range=[-20 20]
+NumMFs=5
+MF1='EZ':'trimf',[-5 0 5]
+MF2='ENP':'trimf',[-10 -5 0]
+MF3='EPP':'trimf',[0 5 10]
+MF4='ENG':'trapmf',[-20 -20 -10 -5]
+MF5='EPG':'trapmf',[5 10 20 20]
+
+[Input2]
+Name='derror'
+Range=[-10 10]
+NumMFs=3
+MF1='DEN':'trimf',[-18.33 -10 -1.667]
+MF2='DEZ':'trimf',[-8.333 0 8.333]
+MF3='DEP':'trimf',[1.667 10 18.33]
+
+[Output1]
+Name='voltaje'
+Range=[0 1]
+NumMFs=3
+MF1='mf1':'trimf',[-0.416666666666667 0 0.416666666666667]
+MF2='mf2':'trimf',[0.0833333333333333 0.5 0.916666666666667]
+MF3='mf3':'trimf',[0.583333333333333 1 1.41666666666667]
+
+[Rules]

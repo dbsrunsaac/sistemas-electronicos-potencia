@@ -1,3 +1,8 @@
+<<<<<<< HEAD
+# SIMULINK
+slprj/
+*.slxc
+=======
 # EXCEPCIONES
 Project Backups/
 *.ms14 (Security copy)
@@ -18,4 +23,5 @@ Project Backups/
 # files latex (packages)
 /_minted*/
 /_minted-*/
+>>>>>>> cf69ff300825866e31f81df9e5026206ff8c29d1
 
