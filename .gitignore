@@ -11,14 +11,57 @@ Project Backups/
 
 
 # Archivos latex
+# Archivos auxiliares generales
 *.aux
 *.log
 *.out
+*.toc
+*.lof
+*.lot
+*.fls
+*.fdb_latexmk
 *.synctex.gz
+*.synctex
+*.run.xml
+
+# Archivos de bibliografía
 *.bbl
 *.blg
-*.dvi
+*.bcf
 
+# Otros archivos temporales
+*.nav
+*.snm
+*.vrb
+*.idx
+*.ilg
+*.ind
+*.glo
+*.gls
+*.ist
+
+# Archivos de diagramas / paquetes
+*.acn
+*.acr
+*.alg
+
+# TikZ, PGF, PSTricks
+*.dpth
+*.md5
+*.tmp
+
+# Beamer
+*.nav
+*.snm
+*.vrb
+
+# Archivos de latexmk
+latexmkrc
+
+# Archivos generados por cambios dependiendo del editor
+*.swp
+*.swo
+*.bak
 
 # files latex (packages)
 /_minted*/

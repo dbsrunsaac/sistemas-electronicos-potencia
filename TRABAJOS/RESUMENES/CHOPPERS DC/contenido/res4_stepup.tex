@@ -1,0 +1,106 @@
+\chapter{Convertidor elevador}
+
+Una vez definidos los convertidores reductores, una topología similar a estos se puede apreciar en los choppers DC elevadores que permiten elevar el nivel DC de salida empleando para ello un inductor en la etapa de entrada y que se utiliza para almacenar la energía en forma de campo magnético mediante las variaciones de corriente debido a la inductancia que esta genera por su composición.
+
+\section{Convertidor elevador con carga R}
+
+Para estudiar el comportamiento de este tipo de convertidor es necesario detallar su estructura, viéndose la misma en la figura \ref{fig:convertidor-elevador} en la cual se muestra una bobina o inductor de entrada un switch, un diodo rectificador y finalmente la carga.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.5\linewidth]{media/convertidor-elevador}
+	\caption{Convertidor Elevador - Chopper DC}
+	\label{fig:convertidor-elevador}
+\end{figure}
+
+\subsection{Principio de funcionamiento}
+
+El funcionamiento de este elevador se ejecuta por etapas o pasos considerando como elemento principal para elevar el voltaje la bobina capaz de almacenar energía, elevando así el voltaje de salida; la secuencia de pasos a considerar se detalla a continuación:
+
+\begin{enumerate}
+	\item Cuando el switch se encuentra en funcionamiento el inductor se carga
+	\item Cuando el interruptor se apaga la energía almacenada es liberada incrementando el nivel de voltaje DC en la salida 
+\end{enumerate}
+
+\subsection{Análisis del circuito}
+
+Este circuito al contar con 2 etapas de funcionamiento en función al switch o alternador se contarán con 2 circuitos diferentes según la conmutación, considerando para el caso 1 cuando la compuerta de cortocircuito un circuito en serie con la fuente de alimentación de entrada y el inductor, mientras que en el caso contrario que el inductor se encuentra en serie con la carga, esto a grandes rasgos se muestra en la figuras \ref{fig:step-up-mode1} y \ref{fig:step-up-mode2} respectivamente.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.2\linewidth]{media/step-up-mode1}
+	\caption{Modo 1 - Convertidor elevador}
+	\label{fig:step-up-mode1}
+\end{figure}
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.2\linewidth]{media/step-up-mode2}
+	\caption{Modo 2 - Convertidor elevador}
+	\label{fig:step-up-mode2}
+\end{figure}
+
+Cabe destacar que en cada caso el interruptor en paralelo a la etapa de salida define cada modo, siendo que para el primer caso genera un corto circuito hacia tierra separando así la carga de la entrada permitiendo almacenar la energía.
+
+Por lo tanto para cada modo es necesario realizar el análisis eléctrico y posteriormente el matemático considerando además los fenómenos físicos que se experimentan en los componentes que lo integran.
+
+Al aplicar la L.T.K en la malla se relaciona el voltaje del inductor con el voltaje de entrada obteniendo así una expresión que relaciona la variación en la la corriente respecto al voltaje y el tiempo, recordando así que la inductancia es la oposición frente al flujo de corriente variable.
+ 
+\begin{align}
+	-V_S + V_L = 0 \\
+	L\frac{di}{dt} = V_S \\
+	L\frac{\Delta I}{\Delta T} = V_S \\
+	\Delta I = \frac{V_S*t_1}{L} \\
+	\label{eq:mode1-deltaI}
+\end{align}
+
+En el modo 2 cuando el interruptor esta abierto se tiene un circuito en serie polarizando en directa el diodo $D_m$ hacía la carga descargándose en tal instante de tiempo $t_2$ el inductor elevando el voltaje de salida; Al aplicar L.T.K en circuito de la figura \ref{fig:step-up-mode2} se obtienen la relación \textit{considerando un voltaje umbral equivalente a cero en el diodo} que vincula el voltaje de entrada con los diferentes elementos del circuito.
+
+\begin{align}
+	V_O - V_L = V_S\\
+	V_S + V_L = V_O\\
+	V_S + L\frac{\Delta I}{\Delta T} = V_O \\
+	\Delta T = t2
+\end{align}
+
+En función a la ecuación \ref{eq:mode1-deltaI} se obtiene un valor el voltaje de salida considerando la variación en la corriente debido a la carga y descarga del inductor, relacionando así los diferentes voltajes.
+
+\begin{align*}
+	V_O &= V_S + L*\frac{V_S*t_1}{Lt_2}\\
+	V_O &= V_S + V_S*t_1	\\
+	V_O &= V_S*(1 + \frac{t_1}{t_2})\\
+	t_1 &= KT\\
+	t_2 &= (1-K)T\\
+	V_O &= V_S(1 + \frac{K}{1-K})\\
+\end{align*}
+
+\begin{equation}
+	V_O = \frac{V_S}{1-K}
+	\label{eq:vo-salida-stepup}
+\end{equation}
+
+La expresión final para el voltaje de salida definida en \ref{eq:vo-salida-stepup}  nos indica una dependencia directa con el ciclo de trabajo del conmutador, por lo tanto a mayor \% en el ciclo de trabajo se tendrá un mayor voltaje de salida.
+
+\section{Convertidor elevador con carga R y fuente E}
+
+En comparación al caso anteriormente definido con carga R, en la topología la diferencia se encontrará en la salida agregando una fuente de voltaje DC (E), lo cual agregará más detalles al análisis matemático y físico puesto que ahora se debe considerar un estado inicial en el circuito el cual se desconoce y el cual se puede deducir a partir de los teoremas del valor inicial y final para su análisis.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
