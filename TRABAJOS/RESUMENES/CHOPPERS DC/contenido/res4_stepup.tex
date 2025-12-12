@@ -85,14 +85,50 @@ La expresión final para el voltaje de salida definida en \ref{eq:vo-salida-step
 
 En comparación al caso anteriormente definido con carga R, en la topología la diferencia se encontrará en la salida agregando una fuente de voltaje DC (E), lo cual agregará más detalles al análisis matemático y físico puesto que ahora se debe considerar un estado inicial en el circuito el cual se desconoce y el cual se puede deducir a partir de los teoremas del valor inicial y final para su análisis.
 
+Un modelo topologico de este tipo se aprecia en la figura \ref{fig:step-up-circuito-re} siendo sus modelos equivalentes los mostrados previamente, sin embargo se puede destacar para este caso el uso de un BJT para la etapa de conmutación.
 
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.3\linewidth]{media/step-up-circuito-RE}
+	\caption{Conversor elevador - Carga RE}
+	\label{fig:step-up-circuito-re}
+\end{figure}
 
+Para el análisis de corriente el añadir una fuente de voltaje no modifica los fenomenos físicos o compartiendo asociado a este parámetro, por lo tanto las curvas de transferencia no se ven alteradas considerando 2 rectas, una de pendiente positiva durante la carga y otra de pendiente negativa durante la descarga lo cual evidencia de forma gráfica un \textit{cambio en la polaridad en la bobina durante la descarga} implicando al mismo tiempo un cambio en la dirección de la corriente, esto se ve reflejado en la figura \ref{fig:curvas-corriente-inductor}
 
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.5\linewidth]{media/curvas-corriente-inductor}
+	\caption{Curvas de corriente en el inductor - carga y descarga}
+	\label{fig:curvas-corriente-inductor}
+\end{figure}
 
+Al considerarse nuevamente un circuito conmutado es necesario evaluar 2 casos en el circuito, estando delimitado cada etapa por el ciclo del trabajo de conmutación cada una equivalente a $t_1$ y $t_2$, siendo así que en entre $ 0 < t \leq t1 $ se cuenta con el circuito de la figura \ref{fig:step-up-mode1}, aplicando la L.T.K se relacional los voltajes de entrada y el voltaje del inductor, considerando esta vez la ecuación diferencial correspondiente para el inductor.
 
+\begin{align*}
+	V_S = V_L \\
+	V_L = L \frac{di_1(t)}{dt} \\
+	di_1(t) = \frac{V_S}{L}dt \\
+	\int{di_1(t)} = \int{\frac{V_S}{L}dt}\\
+\end{align*}
 
+\begin{equation}
+	i_1(t) = \frac{V_S}{L}t + A
+	\label{eq:i1-carga-stepup}
+\end{equation}
 
+Para obtener la constante A considerada en la ecuación \ref{eq:i1-carga-stepup} y limitar la familia de funciones resultantes de la solución de la ecuación diferencial se tendrá en cuenta el teorema del valor inicial y para ello se tendrá que para un tiempo $t = 0$ la corriente $i_1(t) = I_1$.
 
+\begin{align}
+	I_1 = A \\
+	i_1(t) = \frac{V_S}{L}t + I_1
+\end{align}
+
+Obteniendo de esta forma el valor de $i_1(t)$ en función del voltaje de entrada e $I_1$, luego considerando que el valor del corriente varia durante la descarga para obtener el valor pico máximo $I_2$ se hará uso del teorema del valor final definiendo $t = KT$ e $i_1(t) = I_2$ de tal relación se tiene:
+
+\begin{equation}
+	I_2 = \frac{V_S}{L}KT + I_1
+\end{equation}
 
 
 
