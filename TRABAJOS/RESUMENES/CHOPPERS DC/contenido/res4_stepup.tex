@@ -165,7 +165,17 @@ Aplicando el teorema del valor inicial se espera que para un tiempo $t = 0$ la c
 	i_2(t) &= I_2e^{-\frac{R}{L}t} + \frac{V_S - E}{R}(1 - e^{-\frac{R}{L}t}
 \end{align*}
 
-Al obtener el valor de $i_2(t)$ 
+Al obtener el valor de $i_2(t)$ se puede continuar con la siguiente etapa obteniendo para ello el valor $I_1$ en la etapa de descarga siendo así que el teorema del valor final podrá proporcionar esta valor al considerar $t2 = (1-K)T$ e $i_2(t) = I_1$
+
+\begin{equation}
+	I_1 = I_2e^{-\frac{R}{L}(1-K)T} + \frac{V_S - E}{R}(1 - e^{-\frac{R}{L}(1-K)T})
+	\label{eq:i1-down-current}
+\end{equation}
+
+En la ecuación \ref{eq:i1-down-current} se describe la ecuación exponencial que describe la descargar del circuito elevador \textit{relacionado al inductor} y en función al ciclo de trabajo y el periodo de la señal.
+
+Finalmente a partir de las ecuaciones \ref{eq:i2-carga-stepup} y \ref{eq:i1-down-current} 
+
 
 
 
