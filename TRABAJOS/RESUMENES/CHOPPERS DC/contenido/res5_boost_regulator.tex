@@ -1,7 +1,9 @@
 \chapter{Convertidor elevador - Boost Regulator}
 El convertidor elevador DC \textit{Bosost Regulator} es una variación del convertidor elevador estudiado previamente con la diferencia de que en su topología este circuito agregar un capacitor en paralelo a la carga a modo de filtro para reducir el voltaje de rizo \textit{utilizando para ello el principio de carga y descarga de un elemento capacitivo (C)}
 
-La configuración circuital y disposición de componentes se muestra en la figura \ref{fig:circuit-boost-converter} 
+\section{Funcionamiento y estados del circuito}
+
+La configuración del circuito y disposición de componentes se muestra en la figura \ref{fig:circuit-boost-converter} 
 
 \begin{figure}[h]
 	\centering
@@ -66,12 +68,127 @@ Al igualar las expresiones \ref{eq:deltai-mode1-boostR} y \ref{eq:deltai-mode2-b
 	V_O &= V_S\frac{T}{(1-K)T}\\
 \end{align*}
 
-Finalmente el voltaje de salida para el convertidor se muestra en la ecuación \ref{eq:vo-boostR} que es un expresión simular a la descrita en el circuito elevador tradicional, sin embargo como se verá más adelante es posible afinar/ajustar la salida del circuito mediante el empleo del capacitor C \textit{al reducir el voltaje rizo presente en la salida}
+Finalmente el voltaje de salida para el convertidor se muestra en la ecuación \ref{eq:vo-boostR} que es un expresión similar a la descrita en el circuito elevador tradicional, sin embargo como se verá más adelante es posible afinar/ajustar la salida del circuito mediante el empleo del capacitor C \textit{al reducir el voltaje rizo presente en la salida}.
 
 \begin{equation}
-	V_O &= \frac{V_S}{(1-K)}
+	V_O = \frac{V_S}{(1-K)}
 	\label{eq:vo-boostR}
 \end{equation}
+
+Además en la expresión final para el voltaje de salida al considerarse como una señal variable en el tiempo debido a la conmutación utilizada para su generación, es usado como valor referencia para la expresión \ref{eq:vo-boostR} el valor promedio, por lo que esta expresión queda expresada como en \ref{eq:va-boostR}
+
+\begin{equation}
+	V_a = \frac{V_S}{(1-K)}
+	\label{eq:va-boostR}
+\end{equation}
+
+Por tanto a usar esta expresión se puede obtener una relación de la corriente de entrada con la corriente promedio de salida $I_a$ mediante las expresiones:
+
+\begin{align*}
+	V_SI_S &= V_aI_a\\
+	V_SI_S &= \frac{V_S}{1-K}I_a\\
+	I_S &= \frac{V_S}{1-K}I_a
+\end{align*}
+
+Otra expresión que se puede obtener de las relaciones para el tiempo son las que se describen \ref{eq:deltai-mode1-boostR} y \ref{eq:deltai-mode2-boostR} al despejar $t_1$ y $t_2$ respectivamente, obteniendo así una expresión adicional para la corriente rizo $\Delta I$ definida mediante las siguientes expresiones.
+
+\begin{align*}
+	T &= t_1 + t_2\\
+	T &= L\frac{\Delta I}{V_S} + L\frac{\Delta I}{V_a - V_S}\\
+	T &= \frac{\Delta ILV_a}{V_S(V_a - V_S)}\\
+	\Delta I &= \frac{TV_S(V_a - V_S)}{LV_a}\\
+	\Delta I &= \frac{TV_S(\frac{V_S}{1-K} - V_S)}{L\frac{V_S}{1 - K}}\\
+	\Delta I &= \frac{KTV_S}{L}\\
+\end{align*}
+
+Al expresar $T = 1/F$ se obtiene la expresión final para la corriente rizo \textit{diferencia de corrientes} como \ref{eq:deltai-general}
+\begin{equation}
+	\Delta I = \frac{KV_S}{FL}
+	\label{eq:deltai-general}
+\end{equation}
+
+La cual nos brinda una relación entre el rizo en la corriente relacionada con el inductor, frecuencia de conmutación y el ciclo de trabajo además del voltaje de entrada en el circuito.
+
+\subsection{Voltaje rizo de salida $V_C$}
+
+El principal cambio para el elevador del voltaje es el añadido del capacitor en la etapa de salida, esto con la finalidad de reducir el voltaje de rizo (\textit{voltage ripples}), siendo así que su comportamiento se puede estudiar a partir de su ecuación diferencial como se muestra
+
+\begin{align*}
+	i_C = C\frac{dV_C(t)}{dt}\\
+	dV_C = \frac{1}{C}\int{i_C dt}\\
+	\Delta V_C = \frac{1}{C}I_a\Delta t\\
+\end{align*}
+
+Expresando la función el voltaje de rizado en función a la capacitancia, corriente media de salida y el factor temporal de conmutación $KT$ como se define en \ref{eq:vo-rizo-boostR}
+
+\begin{equation}
+	\Delta V_C = \frac{I_aT}{FC}
+	\label{eq:vo-rizo-boostR}
+\end{equation}
+
+\section{Parámetros extremos de carga}
+En el diseño de circuitos electrónicos es de vital importancia conocer el funcionamiento limite operativo, siendo esto determinado por los elementos que lo componen y los valores limites para ello es posible determinar la magnitud extremo de un componentes antes de que este llegue al fallo, sin embargo para ello también es necesario conocer que \textbf{condiciones eléctricas} necesarias para que esto ocurra teniendo como resultado la fusión de estos 2 elementos (condiciones y componentes del circuito) para establecer los limites.
+
+\subsection{Inductancia crítica $L_C$}
+Uno de los parámetros a considerar es la inductancia que para el caso de un convertidor \textit{Boost Regulator} es de vital importancia debido a su capacidad de incrementar el voltaje de salida y siendo este el componente a analizar.
+
+Una vez definido el componente es necesario determinar la condición limite para establecer la magnitud extrema en el inductor, para esto se debe analizar el comportamiento eléctrico, determinando así que para una corriente $I_1 = 0$ esto debido a que en función a la corriente de inductor esta condición genera una corriente de rizo pico generando: sobrecalentamiento, perdidas por histeresis en el núcleo y generando voltajes pico peligrosos, además de la generación interferencia electromagnética (EMI).
+
+Considerando esto se tiene las siguientes expresiones para obtener el valor crítico para la inductancia mediante
+
+\begin{align*}
+	\Delta I = I_2 - I_1\\
+	I_1 = 0\\
+	\Delta I = I_2
+	Asumiendo\\
+	I_{Lavg} = I_a\\
+	I_2 = 2I_a\\
+	Definiendo\\
+	\Delta I = 2I_a
+\end{align*}
+
+Mediantes tales expresiones es posible hacer uso de la ecuación \ref{eq:deltai-general} para obtener la inductancia crítica y cuyo valor debe ser mayor igual al obtenido a la expresión definida en \ref{eq:lc-boostR}
+
+\begin{align*}
+	\frac{KV_S}{L_CF} &= 2\frac{V_a}{R} \\
+	\frac{KV_S}{L_CF} &= 2\frac{V_S}{(1-K)R} \\
+	\frac{K}{L_CF} &= \frac{2}{(1-K)R}\\
+\end{align*}
+Finalmente se tiene la expresión
+\begin{equation}
+	L_C = \frac{K(1-K)R}{2F}
+	\label{eq:lc-boostR}
+\end{equation}
+
+\subsection{Capacitancia crítica $C_C$}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
