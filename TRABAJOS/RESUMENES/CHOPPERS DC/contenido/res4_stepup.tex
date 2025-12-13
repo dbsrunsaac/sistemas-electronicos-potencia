@@ -98,7 +98,7 @@ Para el análisis de corriente el añadir una fuente de voltaje no modifica los 
 
 \begin{figure}[h]
 	\centering
-	\includegraphics[width=0.5\linewidth]{media/curvas-corriente-inductor}
+	\includegraphics[width=0.4\linewidth]{media/curvas-corriente-inductor}
 	\caption{Curvas de corriente en el inductor - carga y descarga}
 	\label{fig:curvas-corriente-inductor}
 \end{figure}
@@ -106,10 +106,10 @@ Para el análisis de corriente el añadir una fuente de voltaje no modifica los 
 Al considerarse nuevamente un circuito conmutado es necesario evaluar 2 casos en el circuito, estando delimitado cada etapa por el ciclo del trabajo de conmutación cada una equivalente a $t_1$ y $t_2$, siendo así que en entre $ 0 < t \leq t1 $ se cuenta con el circuito de la figura \ref{fig:step-up-mode1}, aplicando la L.T.K se relacional los voltajes de entrada y el voltaje del inductor, considerando esta vez la ecuación diferencial correspondiente para el inductor.
 
 \begin{align*}
-	V_S = V_L \\
-	V_L = L \frac{di_1(t)}{dt} \\
-	di_1(t) = \frac{V_S}{L}dt \\
-	\int{di_1(t)} = \int{\frac{V_S}{L}dt}\\
+	V_S &= V_L \\
+	V_L &= L \frac{di_1(t)}{dt} \\
+	di_1(t) &= \frac{V_S}{L}dt \\
+	\int{di_1(t)} &= \int{\frac{V_S}{L}dt}\\
 \end{align*}
 
 \begin{equation}
@@ -128,11 +128,44 @@ Obteniendo de esta forma el valor de $i_1(t)$ en función del voltaje de entrada
 
 \begin{equation}
 	I_2 = \frac{V_S}{L}KT + I_1
+	\label{eq:i2-carga-stepup}
 \end{equation}
 
+En la ecuación \ref{eq:i2-carga-stepup} se define el pico máximo para la corriente $I_2$, sin embargo para obtener la curva de corriente correspondiente a la descargar del inductor es imperativo hacer uso del circuito para el modelo 2 mostrado en \ref{fig:step-up-mode2} cuando el parámetro de tiempo varía entre $ KT < t \leq (1-K)T$ equivaliendo la diferencia entre ambos extremos a un tiempo $t_2$.
 
+Aplicando la L.T.K en el circuito serie resultante se obtienen la siguiente relación de voltajes considerando para ello la fuente DC (E).
 
+\begin{align*}
+	V_L + i_2R + E = V_S \\
+	L\frac{di_2(t)}{dt} + i_2R + E = V_S\\
+\end{align*}
 
+De la ecuación diferencial resultante se implica que su solución contempla una función divida en 2 etapas la transitoria y en régimen permanente otorgando así la división de la corriente $i_2(t)$ mediante el esquema
+
+\begin{equation}
+	i_2(t) = i_s + i_{tr}
+	\label{eq:i2-respuesta-stepup}
+\end{equation}
+
+La solución de la Ec. diferencial en función a la expresión de control definida en \ref{eq:i2-respuesta-stepup} nos permite evidenciar que su parte constante es el valor final en régimen estacionario y la exponencial la parte transitoria puesto que cuanto más tiempo transcurra este valor ira constantemente en decremento hasta anularse \textit{idealmente}.
+
+\begin{equation}
+	i_2(t) = \frac{V_S - E}{R} + Ae^{-\frac{t}{\tau}}
+	\label{eq:i2-resp-control}
+\end{equation}
+
+La ecuación \ref{eq:i2-resp-control} define la solución de la Ec. diferencial siendo en esta el valor de $\tau = \frac{L}{R}$ el cual detalla la dependecia del tiempo de estabilidad en función al valor de la inductancia y resistencia, sin embargo al igual que en el primer caso como solución se tiene una familia de función, por lo que se volverá aplicar el teorema del valor inicial y final.
+
+Aplicando el teorema del valor inicial se espera que para un tiempo $t = 0$ la corriente $i_2(t) = I_2$, en tal sentido al evaluar \ref{eq:i2-resp-control} bajo estas condiciones, se tiene que:
+
+\begin{align*}
+	I_2 &= \frac{V_S - E}{R} + A \\
+	A &= I_2 -  \frac{V_S - E}{R}\\
+	Finalmente \\
+	i_2(t) &= I_2e^{-\frac{R}{L}t} + \frac{V_S - E}{R}(1 - e^{-\frac{R}{L}t}
+\end{align*}
+
+Al obtener el valor de $i_2(t)$ 
 
 
 
