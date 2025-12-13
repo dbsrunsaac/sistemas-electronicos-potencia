@@ -1,11 +1,80 @@
-\chapter{Hipótesis}
-\section{Hipótesis General}
+\chapter{Convertidor elevador - Boost Regulator}
+El convertidor elevador DC \textit{Bosost Regulator} es una variación del convertidor elevador estudiado previamente con la diferencia de que en su topología este circuito agregar un capacitor en paralelo a la carga a modo de filtro para reducir el voltaje de rizo \textit{utilizando para ello el principio de carga y descarga de un elemento capacitivo (C)}
 
-\section{Hipótesis Específicas}
+La configuración circuital y disposición de componentes se muestra en la figura \ref{fig:circuit-boost-converter} 
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.5\linewidth]{media/circuit-boost-converter}
+	\caption{Circuito elevador - Configuración Boost Regulator}
+	\label{fig:circuit-boost-converter}
+\end{figure}
+
+Y al igual que los conversores previamente vistos su análisis se divide en 2 etapas o modos de funcionamientos en función al ciclo de trabajo para la conmutación del elemento de control, es así que para este caso también se deberán considerar los tiempos de funcionamiento y límites previamente vistos.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.3\linewidth]{media/mode1-boostR}
+	\caption{Circuito elevador - Boost Regulator Modo 1}
+	\label{fig:mode1-boostr}
+\end{figure}
+
+En las figuras \ref{fig:mode1-boostr} y \ref{fig:mode2-boostr} se muestran los circuitos a verificar eléctrica y matemáticamente en función al ciclo de conmutación para obtener así las expresiones que permitan comprender su funcionamiento.
+
+Al aplicar la L.T.K en el circuito del modo 1 \ref{fig:mode1-boostr} se establece una relación entre el voltaje de entrada y el voltaje en el inductor durante la carga, por lo tanto la variación de la corriente queda en función a la siguientes expresiones matemáticas
+
+\begin{align*}
+	V_L = V_S\\
+	L\frac{\Delta I}{\Delta t} = V_S
+\end{align*}
+
+\begin{equation}
+	\Delta I = \frac{V_S}{L}t_1
+	\label{eq:deltai-mode1-boostR}
+\end{equation}
+
+Considerando $\Delta t = t_1$ debido a que es en tal variación de tiempo en la cual se emplea el circuito en el modo 1 para su funcionamiento.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.3\linewidth]{media/mode2-boostR}
+	\caption{Circuito elevador - Boost Regulator Modo 2}
+	\label{fig:mode2-boostr}
+\end{figure}
+
+Considerando la expresión \ref{eq:deltai-mode1-boostR} relevante para encontrar las expresiones de voltaje y corriente en este convertidor es necesario seguidamente analizar el circuito para el modo 2 mostrado en la figura \ref{fig:mode2-boostr} cuando el interruptor/conmutador es un circuito abierto, obteniendo de esta relación
+
+\begin{align*}
+	V_O = V_S + V_L\\
+	V_L = V_O - V_S\\
+	L \frac{\Delta I}{\Delta t} = V_O - V_S
+\end{align*}
+Considerando $\Delta t = t_2$ debido a que el funcionamiento del circuito en el modo ocurre en el intervalo off del conmutador, obteniendo finalmente la expresión rizo de la corriente para $t_2$ como
+
+\begin{equation}
+	\Delta i = \frac{V_O - V_S}{L}t_2
+	\label{eq:deltai-mode2-boostR}
+\end{equation}
+
+Al igualar las expresiones \ref{eq:deltai-mode1-boostR} y \ref{eq:deltai-mode2-boostR} se obtiene el voltaje de salida en función al voltaje de entrada y el ciclo de trabajo para el conmutador en función a la equivalencia de tiempos para $t_1 = KT$ y $t_2 = (1-K)T$ y justificado mediante las ecuaciones:
+
+\begin{align*}
+	\frac{V_S}{L}t_1 &= \frac{V_O - V_S}{L}t_2\\
+	V_St_1 &= (V_O - V_S)t_2\\
+	V_O &= V_S\frac{(t_1 + t_2)}{t_2}\\
+	V_O &= V_S\frac{KT + T - KT}{(1-K)T}\\
+	V_O &= V_S\frac{T}{(1-K)T}\\
+\end{align*}
+
+Finalmente el voltaje de salida para el convertidor se muestra en la ecuación \ref{eq:vo-boostR} que es un expresión simular a la descrita en el circuito elevador tradicional, sin embargo como se verá más adelante es posible afinar/ajustar la salida del circuito mediante el empleo del capacitor C \textit{al reducir el voltaje rizo presente en la salida}
+
+\begin{equation}
+	V_O &= \frac{V_S}{(1-K)}
+	\label{eq:vo-boostR}
+\end{equation}
 
 
- \begin{itemize}
-	\item Primera hipótesis específica
-	\item Segunda hipótesis específica
-	\item Tercera hipótesis específica
- \end{itemize}
+
+
+
+
