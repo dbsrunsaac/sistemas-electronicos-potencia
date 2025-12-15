@@ -1,1 +1,95 @@
-\chapter{Justificación}
+\chapter{Conversor Step Down-buck}
+\section{Principio de Funcionamiento}
+El regulador buck utiliza un interruptor, transistor MOSFET, un diodo, un inductor y un condensador para transferir energía de manera controlada desde la entrada a la salida. El interruptor se enciende y apaga a una frecuencia determinada, permitiendo que el inductor almacene y libere energía, lo que resulta en un voltaje de salida regulado y más bajo que el de entrada.
+\subsection{Interruptor encendido.}
+Cuando el interruptor se activa, el diodo queda polarizado en inversa debido al voltaje de entrada. En consecuencia, toda la corriente de entrada fluye a través del inductor. Así, la corriente continua de entrada (Idc) que recorre el circuito es igual a la corriente que pasa por el inductor:
+
+\ IL = Idc
+
+Durante el tiempo en que el interruptor está encendido, el inductor almacena energía. La corriente que circula por él se reparte entre la corriente que va hacia la carga (Io) y la corriente que carga o descarga el condensador (Ic).
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.5\linewidth]{media/stepBuck_1.png}
+	\caption{Caption}
+	\label{fig:placeholder}
+\end{figure}
+
+\subsection{Interruptor Apagado.}
+Cuando el interruptor se apaga, el circuito pasa del modo 1 al modo 2. 
+En este modo la polaridad del inductor se invierte y comienza a entregar 
+la energía almacenada, por lo que actúa como una fuente. La corriente 
+fluye gracias a dicha energía, ya que la fuente de entrada queda 
+desconectada. La corriente continúa circulando hasta que el inductor 
+se descarga por completo. Durante este intervalo, el voltaje en el 
+inductor es igual al voltaje de salida, pero con signo negativo:
+
+\[
+V_{L_{\text{off}}} = -V_o
+\]
+
+Al apagarse el interruptor, la inversión de polaridad del inductor provoca 
+la polarización directa del diodo, haciendo que el ánodo quede más 
+positivo que el cátodo y permitiendo su conducción.
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.5\linewidth]{media/stepBuck_2.png}
+	\caption{Caption}
+	\label{fig:placeholder}
+\end{figure}
+\section*{Clasificación de corriente del interruptor en un convertidor Buck}
+
+La corriente nominal del interruptor se determina a partir del valor promedio 
+de la corriente que circula por él. Para obtener este valor, se analiza la 
+forma de onda de la corriente del interruptor y se calcula su promedio.
+
+La corriente del inductor puede expresarse como la suma de la corriente del 
+interruptor y la corriente del diodo, de acuerdo con la Ley de Corrientes de 
+Kirchhoff (LCK). Durante el intervalo de encendido, la corriente del inductor 
+coincide con la corriente del interruptor, mientras que durante el intervalo de 
+apagado coincide con la corriente del diodo.
+
+Las formas de onda de la corriente del interruptor \(I_{\text{switch}}\), 
+la corriente del diodo \(I_{\text{diode}}\) y la corriente del inductor \(I_L\) 
+se muestran para los tiempos de encendido y apagado.
+
+La corriente promedio del interruptor está dada por:
+
+\[
+\langle I_{\text{switch}} \rangle 
+= \frac{1}{T}\int_{0}^{DT} I_L(t)\, dt
+\]
+
+Sustituyendo los valores correspondientes, se obtiene:
+
+\[
+\langle I_{\text{switch}} \rangle 
+= \langle I_L \rangle \cdot D
+\]
+
+Dado que la corriente promedio del inductor es igual a la corriente promedio 
+de salida:
+
+\[
+\langle I_L \rangle = \langle I_o \rangle
+\]
+
+la expresión queda como:
+
+\[
+\langle I_{\text{switch}} \rangle 
+= \langle I_o \rangle \cdot D
+\]
+
+Finalmente, la ecuación de clasificación de corriente máxima para el 
+interruptor es:
+
+\[
+I_{\text{switch,max}} = I_{o,\text{max}} \cdot D
+\]
+
+
+
+
+– Explica su principio de operación, ciclo de trabajo y comportamiento de la corriente, debe contener el desarrollo y deduccion de formulas.
+
+– Describe su funcionamiento, ecuaciones básicas y relación de conversión, debe contener el desarrollo y deduccion de formulas.

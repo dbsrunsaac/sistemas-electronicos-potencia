@@ -5,7 +5,7 @@ La configuración circuital y disposición de componentes se muestra en la figur
 
 \begin{figure}[h]
 	\centering
-	\includegraphics[width=0.5\linewidth]{media/circuit-boost-converter}
+	\includegraphics[width=0.6\linewidth]{media/circuit-boost-converter}
 	\caption{Circuito elevador - Configuración Boost Regulator}
 	\label{fig:circuit-boost-converter}
 \end{figure}
@@ -14,7 +14,7 @@ Y al igual que los conversores previamente vistos su análisis se divide en 2 et
 
 \begin{figure}[h]
 	\centering
-	\includegraphics[width=0.3\linewidth]{media/mode1-boostR}
+	\includegraphics[width=0.5\linewidth]{media/mode1-boostR}
 	\caption{Circuito elevador - Boost Regulator Modo 1}
 	\label{fig:mode1-boostr}
 \end{figure}
@@ -37,7 +37,7 @@ Considerando $\Delta t = t_1$ debido a que es en tal variación de tiempo en la 
 
 \begin{figure}[h]
 	\centering
-	\includegraphics[width=0.3\linewidth]{media/mode2-boostR}
+	\includegraphics[width=0.5\linewidth]{media/mode2-boostR}
 	\caption{Circuito elevador - Boost Regulator Modo 2}
 	\label{fig:mode2-boostr}
 \end{figure}
@@ -52,7 +52,7 @@ Considerando la expresión \ref{eq:deltai-mode1-boostR} relevante para encontrar
 Considerando $\Delta t = t_2$ debido a que el funcionamiento del circuito en el modo ocurre en el intervalo off del conmutador, obteniendo finalmente la expresión rizo de la corriente para $t_2$ como
 
 \begin{equation}
-	\Delta i = \frac{V_O - V_S}{L}t_2
+	\Delta I = \frac{V_O - V_S}{L}t_2
 	\label{eq:deltai-mode2-boostR}
 \end{equation}
 
@@ -69,12 +69,9 @@ Al igualar las expresiones \ref{eq:deltai-mode1-boostR} y \ref{eq:deltai-mode2-b
 Finalmente el voltaje de salida para el convertidor se muestra en la ecuación \ref{eq:vo-boostR} que es un expresión simular a la descrita en el circuito elevador tradicional, sin embargo como se verá más adelante es posible afinar/ajustar la salida del circuito mediante el empleo del capacitor C \textit{al reducir el voltaje rizo presente en la salida}
 
 \begin{equation}
-	V_O &= \frac{V_S}{(1-K)}
+	V_O = \frac{V_S}{(1-K)}
 	\label{eq:vo-boostR}
 \end{equation}
-
-
-
 
 
 

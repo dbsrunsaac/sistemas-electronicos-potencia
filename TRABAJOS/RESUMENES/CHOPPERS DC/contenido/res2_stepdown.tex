@@ -1,10 +1,43 @@
-\chapter{Convertidor Reductor DC}
+\chapter{Conversor Step Down con carga R.}
+Los conversores Step Down son circuitos que reducen el voltaje de entrada a un nivel más bajo y estable en la salida. Estos dispositivos utilizan un interruptor, un inductor, un diodo y un condensador para lograr la conversión de manera eficiente, regulando el voltaje de salida mediante la modulación del ciclo de trabajo del interruptor.
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.5\linewidth]{media/StepDown.png}
+	\caption{Caption}
+	\label{fig:placeholder}
+\end{figure}
+\section{Principio de operacion.}
+El convertidor Step Down con carga resistiva funciona alternando periódicamente un interruptor entre estados de conducción ON y corte OFF. 
+\subsection{Interruptor Cerrado.}Cuando el interruptor está ON, la fuente de entrada aplica voltaje al inductor ya la carga, almacenando energía en el inductor.
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.5\linewidth]{media/Step down_1.png}
+	\caption{Caption}
+	\label{fig:placeholder}
+\end{figure}
 
-El primer elemento de estudio será el convertidor reductor de voltaje DC con una carga R, ello con la finalidad de comprender el funcionamiento básico de este tipo de convertidor.
+\subsection{Interruptor Abierto.}Cuando el interruptor está APAGADO, la energía almacenada en el inductor mantiene la corriente a la carga a través de un diodo.
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.5\linewidth]{media/Step down_2.png}
+	\caption{Caption}
+	\label{fig:placeholder}
+\end{figure}
+\section{Comportamiento de corriente.}
 
-Para iniciar el análisis es necesario conocer la topología del convertidor, mostrándose la misma
+\subsection{Régimen de corriente continua (C.C.)}
+La corriente que circula por la carga oscila entre un valor máximo y uno mínimo, pero nunca llega a ser cero. Esto ocurre debido a la relación entre el tiempo en que el interruptor permanece cerrado y el tiempo que requiere la bobina para liberar por completo la energía que había acumulado.
+\subsection{Régimen de corriente discontinuada (C.D.)}
+Régimen de corriente discontinuada (C.D.)
+La corriente en la carga llega a ser cero en algún instante durante el tiempo de apagado (TOFF) del convertidor. Esto ocurre porque el interruptor permanece abierto por más tiempo del que la bobina puede seguir entregando energía; por ello, al iniciar el siguiente ciclo, la corriente en la carga comienza nuevamente desde cero.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.8\linewidth]{media/Step down_corriente.png}
+	\caption{Formas de onda de corriente en los regímenes C.C. y C.D. del convertidor.}
+	\label{fig:placeholder}
+\end{figure}
 
 
-\section {}
 
 
