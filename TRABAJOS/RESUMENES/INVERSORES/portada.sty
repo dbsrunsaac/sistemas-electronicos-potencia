@@ -1,0 +1,81 @@
+%*****************************************************************************
+% Carátula
+%*****************************************************************************
+\renewcommand{\maketitle}
+{
+    \thispagestyle{empty}
+    \begin{center}
+        
+        {\Large{UNIVERSIDAD NACIONAL DE SAN ANTONIO ABAD DEL CUSCO}}\\ [0.5cm]
+        FACULTAD DE INGENIERÍA ELÉCTRICA, ELECTRÓNICA, INFORMÁTICA Y MECÁNICA \\ [0.5cm]
+        ESCUELA PROFESIONAL DE INGENIERÍA ELECTRÓNICA\\
+    \end{center}
+    
+    \begin{figure}[h]
+    \center
+    \includegraphics[scale = 0.26]{graficos/escudo}
+    \end{figure}
+
+    \begin{center}
+        % Generar titulo
+        \text{TRABAJO ASIGNADO} \\
+        \rule{156mm}{0.7mm} \\ 
+        {\Large \textbf{``INVERSORES MONOFÁSICOS Y TRIFÁSICOS"} \par}
+        \rule{156mm}{0.7mm} \\
+    \end{center}
+
+    \setlength{\tabcolsep}{7em} 
+    {\renewcommand{\arraystretch}{0.9}
+    \begin{tabular}{p{14cm}}
+
+        Presentado por: \\ [0.2cm]
+        \qquad {\large Davis Bremdow Salazar Roa}\\
+        \vspace*{\stretch{1}}
+
+        Curso: \\ [0.2cm]
+        \qquad {\large Sistemas Electrónicos de Potencia}\\
+        \vspace*{\stretch{1}}
+        
+        Profesor: \\ [0.2cm]
+        \qquad {\large Christian Deyvi Villares Holguin}\\
+        \vspace*{\stretch{1}}
+
+        \vspace*{\stretch{1}}
+        %\vspace*{0.05cm}
+
+    \end{tabular}
+    }
+    \begin{center}
+        12 Enero, 2026
+    \end{center}
+    
+    \vspace*{\stretch{1}}
+
+}
+
+%*****************************************************************************
+% Resumen
+%*****************************************************************************
+\newenvironment{resumen}
+{
+    \chapter*{Resumen}
+    \hrule
+    \vspace*{0.5cm}
+    \narrower
+    \vfill
+    \thispagestyle{empty}
+}
+{
+    \vfill
+    \vfill
+    \vfill
+    \clearpage
+}
+
+%*****************************************************************************
+% Párrafos
+%*****************************************************************************
+\parindent 1cm
+\parskip 0.4cm
+
+

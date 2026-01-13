@@ -1,0 +1,144 @@
+\chapter{Simulación}
+
+Una forma de poder respaldar los parámetros eléctricos establecidos en el diseño de un circuito para este caso un convertidor reductor Buck Regulator es mediante el desarrollo de su equivalente en un programa de simulación siendo este especializado como PSIM o de próposito general como NI Multisim o Proteus.
+
+En este apartado se presentarán dos simulaciones para reforzar y afianzar los conocimientos adquiridos. \\
+\section{Modelado matemático detallado del convertidor Buck en MATLAB}
+La simulación del convertidor Buck se inicia con la generación de una señal PWM que representa el ciclo de trabajo \(D\), el cual determina los intervalos de encendido y apagado del interruptor. A partir de un voltaje de entrada constante, este se modula mediante el ciclo de trabajo para obtener el voltaje promedio aplicado al inductor. En la implementación realizada, el voltaje de entrada se fija en \(V_{in} = 340\,\text{V}\), manteniéndose constante durante toda la simulación.
+
+El comportamiento del inductor se modela a partir de la diferencia entre el voltaje aplicado \(D \cdot V_{in}\) y el voltaje de salida \(V_{out}\). Esta diferencia se multiplica por una ganancia equivalente a \(1/L\), donde el valor del inductor utilizado es \(L = 400\,\mu\text{H}\), por lo que la ganancia implementada es
+\[
+\frac{1}{L} = \frac{1}{400 \times 10^{-6}}.
+\]
+Posteriormente, un bloque integrador permite obtener la corriente del inductor a partir de su derivada.
+
+De manera similar, la ecuación del capacitor se implementa considerando la diferencia entre la corriente del inductor y la corriente de carga. La corriente de carga se obtiene mediante una ganancia \(1/R\), donde la resistencia utilizada es \(R = 0.6\,\Omega\). La señal resultante se multiplica por la ganancia asociada al capacitor, definida como \(1/C\), siendo el valor del capacitor \(C = 100\,\mu\text{F}\), lo que da lugar a la ganancia
+\[
+\frac{1}{C} = \frac{1}{100 \times 10^{-6}}.
+\]
+Mediante un segundo integrador se obtiene el voltaje de salida del convertidor.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.9\linewidth]{contenido/Simulink_1.png}
+    \caption{Circuito Buck Regulator - MATLAB}
+    \label{fig:buck-matlab}
+\end{figure}
+
+Finalmente, se incorporan bloques de medición y visualización que permiten observar la evolución temporal de la corriente del inductor y del voltaje de salida.Se observa que la corriente de salida \(I_{out}\) alcanza un valor aproximado de \(283.3\,\text{A}\), mientras que el voltaje de salida \(V_{out}\) se estabiliza alrededor de \(170\,\text{V}\).
+\\
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.4\linewidth]{contenido/Simulink_2.png}
+    \caption{Voltaje de salida - Circuito Buck Regulator}
+    \label{fig:buck-resultado-matlab}
+\end{figure}
+\subsection{Resultados de la simulación en MATLAB}
+La señal superior (trazo amarillo) corresponde al voltaje de entrada del convertidor, el cual se mantiene constante a lo largo del tiempo.
+Este comportamiento indica que la fuente de alimentación es estable y no presenta variaciones durante la simulación, lo que permite evaluar correctamente el desempeño del convertidor Buck bajo condiciones ideales de entrada.
+La señal inferior (trazo azul) representa el voltaje de salida del convertidor Buck. 
+Se observa que dicho voltaje alcanza rápidamente un valor constante menor que el voltaje de entrada.\\
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.7\linewidth]{contenido/Respuesta.png}
+    \caption{Gráfica reductor Buck Regulator - MATLAB}
+    \label{fig:buck-resultado-grafico-matlab}
+\end{figure}
+\\
+Como se observa en el siguiente cuadro, el voltaje presenta un valor medio de aproximadamente \(283.31\,\text{V}\) y un valor RMS de \(283.32\,\text{V}\), los cuales son prácticamente iguales, indicando un comportamiento cercano a una señal de corriente continua. La desviación estándar obtenida es de \(2.17\,\text{V}\), lo que evidencia una ondulación reducida en la salida del convertidor.
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=1\linewidth]{contenido/Datos.png}
+    \caption{Análisis estadístico de la respuesta del convertidor Buck obtenido en MATLAB.}
+    \label{fig:placeholder}
+\end{figure}
+ 
+La ausencia de oscilaciones apreciables y la forma prácticamente continua de la señal indican que:
+
+\begin{itemize}
+    \item El filtro LC cumple adecuadamente su función.
+    \item El sistema ha alcanzado un régimen permanente estable.
+    \item La ondulación del voltaje de salida es mínima y no significativa a la escala mostrada.
+\end{itemize}
+
+\section{Simulación del funcionamiento del convertidor Buck en PSIM}
+Diseñe las especificaciones de los componentes del circuito de potencia de un convertidor reductor (buck) de 32 V a 20 V, controlado a una frecuencia fija de 10 kHz y con una potencia de salida que varía hasta 10 W. El diseño debe ser para operación en modo de conducción continua y con un rizado de voltaje de salida del 5\%. 
+
+Como primer paso para la resolución del problema es generar un esquema de los componentes a usar y las magnitudes correspondientes para los mismos, necesitando para este caso el valor de la inductancia (L) y capacitancia (C) y la carga (R) para la potencia especificada.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.7\linewidth]{media/buck-psim.png}
+    \caption{Circuito Reductor Buck Regulator - PSIM}
+    \label{fig:buck-psim}
+\end{figure}
+
+Un vistazo general al circuito a diseñar se aprecia en la figura \ref{fig:buck-psim} el cual determina la topología para el Buck Regulator y que se tomara como referencia para la solución, en este se puede destacar las siguientes relaciones \ref{eq:buck-inductor}, \ref{eq:buck-capacitor} y \ref{eq:buck-carga} para obtener el valor de la inductancia, capacitancia y la carga respectivamente.
+
+\begin{equation}
+    L = \frac{(1-K)V_o^2}{2FP_o}
+    \label{eq:buck-inductor}
+\end{equation}
+
+\begin{equation}
+    C = \frac{(1-K)V_o}{8L\Delta_CF^2}
+    \label{eq:buck-capacitor}
+\end{equation}
+
+\begin{equation}
+    R = \frac{V_o^2}{P_o}
+    \label{eq:buck-carga}
+\end{equation}
+
+En primera instancia para el ciclo de trabajo se tiene que:
+
+\begin{align}
+    K &= \frac{V_o}{V_in} \\
+    K &= \frac{20}{32} \\
+    K &= 0.625
+\end{align}
+
+Desarrollando \ref{eq:buck-inductor}, \ref{eq:buck-capacitor} y \ref{eq:buck-carga} se tiene para cada elemento del Buck, se obtiene:
+
+\begin{align}
+    L &= \frac{(1-0.625)20^2}{2(10K)(10)}\\
+    L &= 750\mu H
+\end{align}
+
+\begin{align}
+    C &= \frac{(1-0.625)20}{8(1)(750\mu)(10K)^2} \\
+    C &= 12.5\mu F
+\end{align}
+
+\begin{align}
+    R = \frac{20^2}{10} \\
+    R = 40 \Omega
+\end{align}
+
+Los resultados de configurar estos valores en el  entorno PSIM se muestran en la figura \ref{fig:buck-psim-1}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.7\linewidth]{media/buck-psim-1.png}
+    \caption{Buck Regulator - PSIM componentes definidos}
+    \label{fig:buck-psim-1}
+\end{figure}
+
+Mostrándose el resultado del circuito modelado en la figura \ref{fig:buck-resultados} y en el cual se aprecia el comportamiento esperado con la salida estabilizada en los 20V con un voltaje rizo de 0.932v cercano a la variación definida del 5\% en la salida.
+\newpage
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.7\linewidth]{media/buck-resultados.png}
+    \caption{Salida Circuito Reductor Buck Regulator}
+    \label{fig:buck-resultados}
+\end{figure}
+
+Mediante el circuito simulado se puede establecer una base para continuar las siguientes etapas de estudio como la implementación física y la evolución del circuito para obtener una voltaje de salida reducido y variable .
+
+
+
+
+
+
+
+

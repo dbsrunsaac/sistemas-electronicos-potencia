@@ -1,0 +1,11 @@
+\chapter{Conclusiones}
+
+\begin{itemize}
+    \item Se analizó el funcionamiento del convertidor reductor Buck, comprendiendo su principio de operación y la relación directa entre el voltaje de salida y el ciclo de trabajo de la señal PWM, lo que permite regular eficientemente el nivel de salida.
+    
+    \item El modelado matemático implementado en MATLAB permitió describir adecuadamente la dinámica del convertidor mediante las ecuaciones del inductor y del capacitor. El uso de ganancias equivalentes a \(1/L\), \(1/C\) y \(1/R\) facilitó la obtención de una respuesta estable y coherente con el comportamiento esperado del sistema.Los resultados de la simulación mostraron que el convertidor alcanza un régimen permanente estable, con un voltaje de salida cercano a \(170\,\text{V}\) y una corriente de salida aproximada de \(283.3\,\text{A}\), evidenciando una ondulación reducida gracias al correcto dimensionamiento del filtro LC.
+    
+    \item La simulación en PSIM permitió validar el diseño del convertidor bajo condiciones más cercanas a una aplicación práctica, confirmando su operación en modo de conducción continua y el cumplimiento del nivel de rizado de voltaje especificado.
+    
+    \item La implementación basada en el integrado LM2576 demostró ser una solución práctica y confiable para la regulación de voltaje, al integrar funciones de control y protección que simplifican el diseño y mejoran la estabilidad del sistema.
+\end{itemize}

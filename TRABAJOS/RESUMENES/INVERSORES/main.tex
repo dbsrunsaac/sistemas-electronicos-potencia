@@ -1,0 +1,34 @@
+\UseRawInputEncoding
+\documentclass[a4paper,openany,12pt]{book}
+\input{contenido/includes.tex}
+\newcolumntype{L}{>{\centering\arraybackslash}m{4cm}} 
+\usepackage[caption=false]{subfig}
+\usepackage{dsfont}
+\usepackage{gantt}
+\usepackage[ruled,vlined]{algorithm2e}
+
+\newtheorem{defn}{Definition}[section]
+\pagenumbering{Roman}
+
+\begin{document}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\maketitle
+\input{contenido/resumen} 
+%%%%%%%%%%%%%%%%%%%%%%%%% list of content %%%%%%%%%%%%%%%%%%%%%%%%
+\tableofcontents 
+\addcontentsline{toc}{chapter}{Lista de Tablas}
+\listoffigures 
+\addcontentsline{toc}{chapter}{Lista de Figuras}
+
+\setlength{\tabcolsep}{6pt} 
+\renewcommand{\arraystretch}{1}
+\clearpage
+\pagenumbering{arabic}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\input{contenido/res_introduccion}
+\input{contenido/res_simulacion} %Inserta el capítulo 1
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\bibliographystyle{apalike}
+\bibliography{contenido/bibliog.bib}
+\end{document}

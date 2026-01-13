@@ -1,0 +1,24 @@
+\chapter{Simulación}
+
+Para la realizar la simulación se tomo en cuenta el software PSIM Professional v2025 debido a que presta cierta facilidad para el desarrollo de circuitos de potencia y sus aplicaciones internas como el osciloscopio dinamico que permiten ver las formas de onda de forma interactiva.
+
+En la figura \ref{fig:inversormonofasico} se muestra un circuito inversor monofasico a medio puente con carga RL, alimentado por una fuente de corriente continua partida utilizando como punto de partida esta topología por su simplicidad para el análisis eléctrico del cual es provisto el experimento.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.7\linewidth]{media/inversor_monofasico}
+	\caption{Inversor Monofasico - Medio puente}
+	\label{fig:inversormonofasico}
+\end{figure}
+
+Así mismo desde el punto de vista de la etapa de potencia, el inversor se alimenta mediante dos fuentes de continua idénticas (VDC1 y VDC2), cada una de 24 V, conectadas en serie para generar un bus DC partido con un punto medio referenciado a tierra. Los condensadores C1 y C2, de igual valor, cumplen la función de filtrado y balanceo del bus DC, asegurando que el punto medio mantenga un potencial estable y reduciendo el rizado de tensión durante la conmutación como se describe en \cite{rashid_power_electronics}.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.8\linewidth]{media/curva_salida_inversor}
+	\caption{Forma de onda de salida - Inversor Monofásico}
+	\label{fig:curvasalidainversor}
+\end{figure}
+
+En la figura \ref{fig:curvasalidainversor} muestra las formas de onda característica del un inversor monofásico operando con una carga RL, siendo así que el voltaje de salida Vo (en rojo) presenta una onda cuadrada bipolar de amplitud aproximada ±20 V a una frecuencia de 60Hz, con transiciones abruptas, justificada por la alta inductancia del enlace DC que impone una corriente constante e independiente de la carga. Por su parte, la corriente de salida Io (en verde) permanece cercano a cero (±1 a ±2 A), exhibiendo leves curvaturas o redondeos durante los intervalos de corriente constante, atribuibles a la transición entre los diferentes ciclos de trabajo para los conmutadores y el propio comportamiento de un circuito RL.
+

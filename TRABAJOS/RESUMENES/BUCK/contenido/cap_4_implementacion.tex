@@ -1,0 +1,90 @@
+\chapter{Implementación}
+
+\section{Armado y consideraciones del circuito}
+
+En la parte de experimental y física del Buck Regulator se tuvo en cuenta una evolución del circuito Buck Regulator mostrado en la figura \ref{fig:buck-psim-1} agregando una etapa de regulación para el voltaje de salida y retroalimentación para estabilizar a un determinado nivel para cargas variables.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.7\linewidth]{media/buck-v2.png}
+    \caption{Circuito Reductor Buck Regulator}
+    \label{fig:buck-v2}
+\end{figure}
+
+
+En la figura \ref{fig:buck-v2} se muestra el esquema del circuito reductor tomando como elemento central para ello el integrado LM2576 el cual permite la regulación del voltaje y estabilidad en la salida, integrando además en su topología el uso de dispositivos de rápida recuperación inversa como el diodo Schottky. 
+
+En tal caso para comprender de mejor forma el funcionamiento del circuito es de vital importancia estudiar este integrado y el cual se detalla en la tabla \ref{tab:pines-lm2576} en función a su hoja de datos y la figura mostrada en \ref{fig:integrado-lm2576}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.5\linewidth]{media/integrado-lm2576.png}
+    \caption{Circuito integrado LM2576}
+    \label{fig:integrado-lm2576}
+\end{figure}
+\newpage
+\begin{table}[h]
+    \centering
+    \begin{tabular}{|c|c|p{9cm}|}
+        \hline
+        \textbf{Pin} & \textbf{Nombre} & \textbf{Función / Utilidad} \\
+        \hline
+        1 & Vin & Entrada de alimentación del regulador. Se conecta a la fuente DC no regulada y al capacitor de desacoplo de entrada (CIN). Debe mantenerse una trayectoria corta hacia tierra para reducir ruido y EMI. \\
+        \hline
+        2 & Output & Nodo de conmutación del transistor interno. Se conecta al inductor de salida y al cátodo del diodo externo. Transporta señales de alta frecuencia. \\
+        \hline
+        3 & GND & Tierra del sistema. Referencia común del circuito. Debe conectarse directamente al retorno del capacitor de entrada para minimizar inductancias parásitas. \\
+        \hline
+        4 & Feedback & Entrada de realimentación. En versiones fijas se conecta directamente a la salida; en la versión ajustable se conecta al divisor resistivo que define el voltaje de salida. \\
+        \hline
+        5 & On/Off & Pin de habilitación del regulador. Nivel bajo activa el dispositivo y nivel alto lo apaga. No debe dejarse flotante. Permite funciones de apagado y arranque retardado. \\
+        \hline
+    \end{tabular}
+    \caption{Tabla de resumen pines del Integrado LM2576}
+    \label{tab:pines-lm2576}
+\end{table}
+
+Respecto a los niveles de alimentación el LM2576 cuenta con un amplio rango de operación en la entrada limitandose en su extremo superior los 40v en la entrada y entre los -0.3V a 2.4V para el voltaje de activación del pin 5 de control considerando como nivel lógico bajo (habilitado) valores típicamente menores a 1.2 V, y como nivel alto (apagado) valores mayores a 1.4–2.4 V según la temperatura. Estos límites garantizan una operación segura del dispositivo, evitando daños permanentes y asegurando un control confiable del encendido y apagado del regulador.
+
+En la armado del circuito se consideraron todos los componentes definidos en la figura \ref{fig:buck-v2} obtenidos cada uno de forma comercial a excepción de la bobina que fue reemplazada por uno de los devanados de un transformador, mostrandose el resultado en la figura \ref{fig:buck-implementacion} que integra todo en una placa de pruebas.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.6\linewidth]{media/buck-implementacion.png}
+    \caption{Reductor Buck Regulator - Implementación}
+    \label{fig:buck-implementacion}
+\end{figure}
+
+Utilizando para regular el voltaje reducido de salida el potenciómetro en conjunto con la resistencia de salida, pudiéndose conectar una carga en paralelo a estos y entre sus terminales.
+
+\section{Funcionamiento}
+
+Durante las pruebas realizadas se sometió el circuito reductor implementado a un voltaje de entrada $V_in$ de 30V como se muestra en la figura \ref{fig:buck-vin-implementacion} configurado en la fuente DC del laboratorio.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.7\linewidth]{media/buck-vin-implementacion.png}
+    \caption{Voltaje de entrada - Implementación}
+    \label{fig:buck-vin-implementacion}
+\end{figure}
+
+Con el voltaje de entrada establecido este mismo se redujo a 22v como se muestra en la figura \ref{fig:buck-out-22v}
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.5\linewidth]{media/buck-out-22v}
+	\caption{Voltajes de salida 22v - Buck Regulator}
+	\label{fig:buck-out-22v}
+\end{figure}
+
+Destacando la capacidad del integrado para la regulación variable en relación inversa a la variación en la resistencia del potenciómetro además de integrar una etapa de regulación de voltaje que logra mediante una etapa de retroalimentación negativa que compara continuamente el voltaje de salida con una referencia interna de aproximadamente 1.23V mediante el pin 4 feedback que se conecta mediante un divisor de tensión ocasionando que cuando ocurre un variación de voltaje significativa este sea detectado por el amplificador de error interno, el cual ajusta el ciclo de trabajo del interruptor de potencia conmutado a una frecuencia fija de 52 kHz, incrementando el tiempo de conducción cuando la carga aumenta (para elevar la energía transferida al inductor) o reduciéndolo cuando la carga disminuye, asegurando así que el voltaje de salida permanezca prácticamente constante dentro de los márgenes especificados aun ante cambios dinámicos de corriente.
+
+Finalmente un análisis en tiempo respecto a la respuesta inicial o al impulso del circuito se muestra en la figura \ref{fig:buck-forma-onda} el cual presenta inicialmente un sobre impulso del 10\% destacando así un sistema de segundo orden sobre amortiguado para un voltaje de salida establecido en los 5.12V.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.6\linewidth]{media/buck-out-forma-onda.png}
+	\caption{Respuesta en el tiempo - Buck Regulator}
+	\label{fig:buck-forma-onda}
+\end{figure}
+

@@ -1,0 +1,244 @@
+\chapter{Marco Teórico}
+
+\section{Convertidor de potencia  Buck}
+
+Un conversor \textit{buck}, también conocido como convertidor reductor, es un convertidor CC--CC cuyo objetivo es disminuir de manera eficiente un voltaje de entrada elevado para obtener un voltaje de salida menor. Este circuito de potencia opera mediante conmutación, lo que permite alcanzar altos niveles de eficiencia. Está conformado por un interruptor electrónico, generalmente un MOSFET, un inductor, un diodo de rueda libre y un capacitor encargado de filtrar y suavizar el voltaje de salida según \cite{rashid_electronica_potencia_2ed}. La regulación del voltaje se realiza comúnmente mediante modulación por ancho de pulso (PWM), donde el valor del voltaje de salida depende del ciclo de trabajo \(D\), cumpliéndose aproximadamente la relación \(V_{out} \approx D \cdot V_{in}\).
+\\
+Generalmente, está compuesto por los siguientes componentes:
+
+\begin{itemize}
+    \item Interruptor/Transistor (S): Este componentes suele ser un MOSFET, encargandose de enceder y apagar rapidamente para cortar el voltaje de entrada.
+    \item Diodo(D):Se utiliza el diodo Schottky y este se encarga de proporcionar una ruta de retorno para la corriente cuando el interruptor del transistor esta apagado.
+    \item Inductor(L): Acumula energía en su campo magnético durante el encendido del interruptor y la libera hacia la carga cuando este se apaga. 
+    \item Condensador(C):Reduce la ondulación del voltaje y ayuda a mantener una salida de corriente continua más estable.
+\end{itemize}
+
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.5\linewidth]{media/Circuito.png}
+    \caption{Representación circuital básica de un convertidor Buck.}
+    \label{fig:placeholder}
+\end{figure}
+
+\section{Principio de Funcionamiento}
+
+El regulador buck utiliza un interruptor, transistor MOSFET, un diodo, un inductor y un condensador para transferir energía de manera controlada desde la entrada a la salida. El interruptor se enciende y apaga a una frecuencia determinada, permitiendo que el inductor almacene y libere energía, lo que resulta en un voltaje de salida regulado y más bajo que el de entrada. \cite{greenwade93}
+
+\subsection{Interruptor encendido.}
+
+Cuando el interruptor se activa, el diodo queda polarizado en inversa debido al voltaje de entrada. En consecuencia, toda la corriente de entrada fluye a través del inductor. Así, la corriente continua de entrada (Idc) que recorre el circuito es igual a la corriente que pasa por el inductor:
+
+$IL = Idc$
+
+Durante el tiempo en que el interruptor está encendido, el inductor almacena energía. La corriente que circula por él se reparte entre la corriente que va hacia la carga (Io) y la corriente que carga o descarga el condensador (Ic).
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.7\linewidth]{media/stepBuck_1.png}
+	\caption{}
+	\label{fig:placeholder}
+\end{figure}
+
+\subsection{Interruptor Apagado.}
+Cuando el interruptor se apaga, el circuito pasa del modo 1 al modo 2. 
+En este modo la polaridad del inductor se invierte y comienza a entregar 
+la energía almacenada, por lo que actúa como una fuente. La corriente 
+fluye gracias a dicha energía, ya que la fuente de entrada queda 
+desconectada. La corriente continúa circulando hasta que el inductor 
+se descarga por completo. Durante este intervalo, el voltaje en el 
+inductor es igual al voltaje de salida, pero con signo negativo:
+
+\[
+V_{L_{\text{off}}} = -V_o
+\]
+
+Al apagarse el interruptor, la inversión de polaridad del inductor provoca 
+la polarización directa del diodo, haciendo que el ánodo quede más 
+positivo que el cátodo y permitiendo su conducción.
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.7\linewidth]{media/stepBuck_2.png}
+	\caption{Caption}
+	\label{fig:placeholder}
+\end{figure}
+\section{Clasificación de corriente del interruptor en un convertidor Buck}
+
+La corriente nominal del interruptor se determina a partir del valor promedio 
+de la corriente que circula por él. Para obtener este valor, se analiza la 
+forma de onda de la corriente del interruptor y se calcula su promedio.
+
+La corriente del inductor puede expresarse como la suma de la corriente del 
+interruptor y la corriente del diodo, de acuerdo con la Ley de Corrientes de 
+Kirchhoff (LCK). Durante el intervalo de encendido, la corriente del inductor 
+coincide con la corriente del interruptor, mientras que durante el intervalo de 
+apagado coincide con la corriente del diodo.
+
+Las formas de onda de la corriente del interruptor \(I_{\text{switch}}\), 
+la corriente del diodo \(I_{\text{diode}}\) y la corriente del inductor \(I_L\) 
+se muestran para los tiempos de encendido y apagado.
+
+La corriente promedio del interruptor está dada por:
+
+\[
+\langle I_{\text{switch}} \rangle 
+= \frac{1}{T}\int_{0}^{DT} I_L(t)\, dt
+\]
+
+Sustituyendo los valores correspondientes, se obtiene:
+
+\[
+\langle I_{\text{switch}} \rangle 
+= \langle I_L \rangle \cdot D
+\]
+
+Dado que la corriente promedio del inductor es igual a la corriente promedio 
+de salida:
+
+\[
+\langle I_L \rangle = \langle I_o \rangle
+\]
+
+la expresión queda como:
+
+\[
+\langle I_{\text{switch}} \rangle 
+= \langle I_o \rangle \cdot D
+\]
+
+Finalmente, la ecuación de clasificación de corriente máxima para el 
+interruptor es:
+
+\[
+I_{\text{switch,max}} = I_{o,\text{max}} \cdot D
+\]
+
+\section {Selección de un inductor para un convertidor Buck.}
+La correcta elección del inductor es esencial para proporcionar una corriente continua y estable a medida que varía la señal PWM, ya que el ciclo de trabajo de dicha señal es el encargado de controlar el voltaje de salida. Al igual que la señal PWM, el inductor opera en régimen de conmutación, lo que genera un ligero rizado de corriente; este componente, junto con el capacitor, conforma un filtro pasa-bajo de segundo orden que permite reducir las ondulaciones y estabilizar la salida del convertidor.
+La designación de un valor adecuado para el inductor depende de la corriente de ondulación que el sistema puede tolerar, así como del ciclo de trabajo que se desea utilizar. Considerando estos factores, el voltaje de salida puede expresarse como una función de la caída de voltaje directo del diodo y de la caída de voltaje en estado de conducción del MOSFET. Después de tener en cuenta estas pérdidas de voltaje, el voltaje de salida se define como:
+\begin{equation}
+V_{out} = D\,(V_{in} + V_{diode} - V_{MOSFET}) - V_{diode}
+\end{equation}
+ La inductancia y la frecuencia de conmutación PWM son inversamente proporcionales al voltaje de ondulación. La ondulación también presenta una dependencia cuadrática respecto al ciclo de trabajo de la señal PWM. Bajo estas consideraciones, la corriente de ondulación en un convertidor \textit{buck} se expresa como:
+
+\begin{equation}
+\Delta I = \frac{(V_{in} + V_{diode} - V_{MOSFET})(D - D^2)}{L\,f_{PWM}}
+\end{equation}
+Un valor de inductancia mayor permite disminuir el rizado de corriente y mejorar la estabilidad del voltaje de salida; sin embargo, incrementa el tamaño y el costo del inductor, además de afectar la respuesta transitoria del convertidor. El aumento de la frecuencia de conmutación PWM contribuye a reducir la ondulación, aunque también incrementa las pérdidas por conmutación en el MOSFET. Asimismo, el ciclo de trabajo influye de manera significativa en el comportamiento del rizado, presentando una dependencia cuadrática según la ecuación~(2.2). En consecuencia, el valor del inductor debe seleccionarse considerando el nivel de ondulación admisible, el voltaje de entrada, la frecuencia de conmutación y las limitaciones prácticas del diseño, con el fin de garantizar un funcionamiento eficiente y estable del convertidor \textit{buck}.
+
+\section {Parámetros que se consideran para escoger un Transistor MOSFET}
+El convertidor reductor puede ser de tipo \textbf{síncrono} o \textbf{asíncrono}. 
+El convertidor síncrono utiliza dos interruptores electrónicos, generalmente MOSFETs, reemplazando al diodo reductor. 
+Por otro lado, el convertidor asíncrono emplea un MOSFET y un diodo, lo que lo hace más simple y económico, ya que solo se controla un interruptor.
+
+La correcta selección del MOSFET es fundamental tanto en convertidores síncronos como asíncronos. 
+Los principales parámetros a considerar son la \textbf{corriente RMS}, el \textbf{voltaje de drenaje a fuente}, la \textbf{disipación de potencia} y la \textbf{temperatura de operación}. 
+La disipación de potencia y la temperatura están estrechamente relacionadas y dependen de factores como la resistencia de conducción \(R_{DS(on)}\), la carga total de compuerta \(Q_g\), la capacitancia de salida \(C_{OSS}\), los tiempos de subida y bajada y la frecuencia de conmutación.
+
+En la siguinete tabla se presentan los principales criterios y parámetros para la selección adecuada del MOSFET en convertidores Buck.
+
+
+\begin{longtable}{|p{1cm}|p{14cm}|}
+    \hline
+    \textbf{N°} & \textbf{Criterio de selección de MOSFET para convertidor Buck} \\
+    \hline
+    \endfirsthead
+    
+    \hline
+    \textbf{N°} & \textbf{Criterio de selección de MOSFET para convertidor Buck} \\
+    \hline
+    \endhead
+    
+    1 &
+    \textbf{No sobrecargar el drenaje} \\
+    &
+    Al conocer la corriente RMS real, se puede seleccionar la corriente nominal del MOSFET.  
+    Para un convertidor reductor no síncrono, la corriente RMS del MOSFET \(Q_1\) se calcula como:
+    \[
+    I_{RMS(Q1)} = \sqrt{D}\left[I_{carga} - \frac{\Delta i}{2} + \frac{\sqrt{3}\,\Delta i}{3}\right]
+    \]
+    
+    donde:
+    \[
+    \Delta i = \frac{V_{out}(1-D)}{f_{sw} \cdot L_1}
+    \quad \text{y} \quad
+    D = \frac{V_{out}}{V_{in}}
+    \]
+    
+    \textbf{Ejemplo:}
+    
+    \(V_{in}=20\,V\), \(V_{out}=10\,V\), \(f_{sw}=100\,kHz\), \(L_1=10\,\mu H\), \(I_{carga}=10\,A\)
+    
+    \[
+    D = \frac{10}{20} = 0.5
+    \]
+    
+    \[
+    \Delta i = \frac{10(1-0.5)}{100\,kHz \cdot 10\,\mu H} = 5\,A
+    \]
+    
+    \[
+    I_{RMS} = \sqrt{0.5}\left[10 - \frac{5}{2} + \frac{\sqrt{3}\cdot5}{3}\right] = 7.35\,A
+    \]
+    
+    Se debe seleccionar un MOSFET con corriente RMS nominal muy superior a \(7.35\,A\). \\
+    \hline
+    
+    2 &
+    \textbf{No aplicar voltaje excesivo de drenaje a fuente} \\
+    &
+    El MOSFET se clasifica según la tensión drenaje--fuente.  
+    Para \(Q_1\), la tensión máxima ocurre cuando está apagado y es aproximadamente igual a \(V_{in}\).  
+    Para \(Q_2\), sucede lo mismo cuando \(Q_1\) está encendido.
+    
+    Se recomienda seleccionar MOSFETs cuya tensión nominal sea al menos el doble de la tensión máxima calculada. \\
+    \hline
+    
+    3 &
+    \textbf{No aplicar voltaje excesivo puerta--fuente} \\
+    &
+    La conexión puerta--fuente tiene un límite máximo especificado en la hoja de datos (por ejemplo, \(20\,V\)).Un buen criterio inicial es limitar el voltaje aplicado al \(70\%\) del valor máximo permitido. \\
+    \hline
+    
+    4 &
+    \textbf{Superar el voltaje umbral puerta--fuente} \\
+    &
+    Para activar el MOSFET se debe cumplir:
+    \[
+    V_{GS(th)} < V_{GS(aplicado)} < V_{GS(max)}
+    \]
+    
+    Un voltaje de compuerta insuficiente provoca mayores pérdidas de conducción, mientras que un voltaje excesivo incrementa las pérdidas de conmutación y puede dañar el dispositivo. \\
+    \hline
+    
+    5 &
+    \textbf{Seleccionar un MOSFET con bajo \(R_{DS(on)}\)} \\
+    &
+    La resistencia drenaje--fuente es el principal factor de pérdida por conducción.  
+    La pérdida es proporcional al cuadrado de \(R_{DS(on)}\), por lo que valores bajos aumentan la eficiencia del convertidor. \\
+    \hline
+    
+    6 &
+    \textbf{Seleccionar un MOSFET con bajos parámetros dinámicos} \\
+    &
+    Parámetros como la carga total de compuerta, capacitancia de salida y tiempos de subida y bajada influyen directamente en las pérdidas de conmutación.
+    
+    Valores bajos mejoran la eficiencia del sistema. \\
+    \hline
+    
+    7 &
+    \textbf{Alta temperatura máxima de unión} \\
+    &
+    Una mayor temperatura máxima de unión permite al MOSFET soportar mayores niveles de calor. \\
+    \hline
+    
+    8 &
+    \textbf{Baja resistencia térmica} \\
+    &
+    La resistencia térmica debe ser baja para mejorar la disipación de potencia y aumentar la confiabilidad del MOSFET en el convertidor Buck.\\
+    \hline
+    
+    \caption{Cuadro resumen para la elección de un MOSFET como conmutador}
+    \label{tab:mosfet-resume}
+
+\end{longtable}
